@@ -1,0 +1,239 @@
+@media (min-width: 1101px) and (max-width: 1300px) {
+.ma{
+    font-size: 1.35vw !important;
+    
+}
+.author{
+    font-size: 1.4vw !important;
+}
+.storym{
+    width: 15vw !important;
+    height: 22vw !important;
+}
+.ma2{
+    gap: 2px;
+}
+.myinput{
+    width: 26vw;
+    height: 11vh;
+    font-size: 1.4vw;
+}
+.mb3{
+    font-size: 1.3vw;
+}
+.midsec{
+    width: 50% !important;
+}
+.ma{
+    display: flex !important;
+
+}
+.nfive{
+    width: 100% !important;
+}
+
+
+}
+
+@media (min-width: 750px) and (max-width: 1100px) {
+    .storym{
+        width: 15vw !important;
+        height: 21vw !important;
+    }
+    .author{
+        font-size: 1.4vw !important;
+    }
+    
+    .right {
+        width: 27% !important;
+        position: relative;
+    }
+    .midsec{
+        width: 60% !important;
+        margin: auto !important;
+    }
+    .left{
+        display: none;
+    }
+    .mainpage{
+        justify-content: space-between !important;
+    }
+     .mb3{
+        font-size: 1.4vw !important;
+    } 
+    
+     .myma{
+        font-size: 1.6vw !important;
+
+    } 
+    .mb2{
+        font-size: 1.5vw !important;
+    } 
+    .mb3{
+        font-size: 1.6vw !important;
+    }
+    .maddimg{
+        width: 18vw !important;
+        margin-bottom: 3vw !important;
+    }
+    .mdiv {
+        background-color: #F0F2F5;
+        width: 50px !important;
+        height: 44px;
+        display: flex;
+        justify-content: center !important;
+        border-radius: 50px;
+        padding-left: 0px !important;
+        gap: 8px;
+    }
+    .minput{
+        display: none;
+    }
+    .myinput{
+        width: 38vw !important;
+        font-size: 2.5vw !important;
+    }
+    .ma{
+        display: inline !important;
+
+    }
+}
+
+@media (min-width: 450px) and (max-width: 749px) {
+    .storym{
+        width: 24vw !important;
+        height: 31vw !important;
+    }
+    .right {
+        display: none !important;
+       
+    }
+    .author{
+        font-size: 1.9vw !important;
+    }
+    .midsec{
+        width: 90% !important;
+    }
+    .left{
+        display: none;
+    }
+    .mainpage{
+        justify-content: space-around !important;
+    }
+  
+    .mb2{
+        font-size: 1.5vw !important;
+    } 
+    .mb3{
+        font-size: 3vw !important;
+    }
+    
+    .minput{
+        display: none !important;
+    }
+    .myinput{
+        width: 68vw !important;
+        font-size: 3.7vw !important;
+    }
+    .myma{
+        font-size: 2.8vw !important;
+
+    } 
+    .mdiv {
+        background-color: #F0F2F5;
+        width: 50px !important;
+        height: 44px;
+        display: flex;
+        justify-content: center !important;
+        border-radius: 50px;
+        padding-left: 0px !important;
+        gap: 8px;
+    }
+   .ntwo{
+    display: none !important;
+   }
+    .nthree{
+        display: flex !important;
+        justify-content: space-between !important;
+    }
+    
+}
+@media (max-width: 449px) {
+    .right {
+        display: none !important;
+       
+    }
+    .author{
+        font-size: 2.7vw !important;
+    }
+    .midsec{
+        width: 90% !important;
+    }
+    .left{
+        display: none;
+    }
+    .mainpage{
+        justify-content: space-around !important;
+    }
+  
+    .mb2{
+        font-size: 1.5vw !important;
+    } 
+    .mb3{
+        font-size: 4.4vw !important;
+    }
+    
+    .minput{
+        display: none !important;
+    }
+    .myinput{
+        width: 60vw !important;
+        font-size: 4.7vw !important;
+    }
+    .myma{
+        font-size: 4.5vw !important;
+
+    } 
+    .mdiv {
+        background-color: #F0F2F5;
+        width: 44px !important;
+        height: 44px;
+        display: none;
+        justify-content: center !important;
+        border-radius: 50px;
+        padding: 0px !important;
+        gap: 8px;
+
+    }
+   .ntwo{
+    display: none !important;
+   }
+    .nthree{
+        width: 50% !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+   
+    .two{
+        width: 35px !important;
+        height: 35px !important;
+    }
+    .mp{
+        width: 40px !important;
+        height: 40px !important;
+    }
+   .nthree:last-child{
+    display: none !important;
+   }
+   .mydivm{
+    justify-content: space-evenly !important;
+   }
+   .storym{
+    width: 30vw !important;
+    height: 40vw !important;
+}
+.mtwo{
+    width: 17px !important;
+}
+
+}

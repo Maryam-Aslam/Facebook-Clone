@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Post Creator</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    #postForm { display: none; margin-top: 10px; }
+    .post { background: #f2f2f2; padding: 10px; margin-top: 10px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+
+  <button id="createBtn">Create Post</button>
+
+  <div id="postForm">
+    <textarea id="postText" rows="4" cols="50" placeholder="Write something..."></textarea><br>
+    <button id="submitBtn">Post</button>
+  </div>
+
+  <div id="postContainer"></div>
+
+  <script>
+    const createBtn = document.getElementById('createBtn');
+    const postForm = document.getElementById('postForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const postText = document.getElementById('postText');
+    const postContainer = document.getElementById('postContainer');
+
+    createBtn.addEventListener('click', () => {
+      postForm.style.display = postForm.style.display === 'none' ? 'block' : 'none';
+    });
+
+    submitBtn.addEventListener('click', () => {
+      const text = postText.value.trim();
+      if (text) {
+        const post = document.createElement('div');
+        post.className = 'post';
+        post.textContent = text;
+        postContainer.prepend(post);
+        postText.value = '';
+        postForm.style.display = 'none';
+      } else {
+        alert('Please write something!');
+      }
+    });
+  </script>
+
+</body>
+</html>
