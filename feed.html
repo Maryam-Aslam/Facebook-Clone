@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Video Clone</title>
+  <link rel="stylesheet" href="responsiveness.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    }
+
+    .video-main {
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    .sidebar {
+      position: fixed;
+      font-size: 20px;
+      height: 100vh;
+      width: 22%;
+      background-color: #fff;
+      padding: 20px 10px;
+      border-right: 1px solid #ddd;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+        font-size: 12px;
+        width: 130px;
+        position: absolute;
+      }
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      font-size: 20px;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .menu-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .menu-item.active {
+      background-color: #f0f2f5;
+    }
+
+    .icon {
+      font-size: 15px;
+    }
+
+   
+
+    .post-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      gap: 20px;
+      margin-left: 260px;
+    }
+
+    @media (max-width: 768px) {
+      .post-container {
+        margin-left: 0px;
+      }
+    }
+
+    .post {
+      width: 100%;
+      max-width: 900px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      gap: 10px;
+    }
+
+    .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .post-info h3 {
+      font-size: 20px;
+    }
+
+    .post-info span {
+      font-size: 18px;
+      color: gray;
+    }
+
+    .post-caption {
+      padding: 10px 15px;
+      font-size: 20px;
+    }
+
+    .post-media video {
+      width: 100%;
+      height: auto;
+      max-height: 60vh;
+      object-fit: cover;
+    }
+
+    .post-stats {
+      padding: 8px 15px 0;
+      font-size: 20px;
+      color: gray;
+    }
+
+    /* Style for the action buttons container */
+    .inaction-buttons {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 15px;
+    }
+
+    /* Common style for both buttons */
+    .interested-button,
+    .not-interested-button {
+      background-color: #f2f2f2;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s, color 0.3s;
+      outline: none;
+    }
+
+    @media (max-width : 768px) {
+
+      .interested-button,
+      .not-interested-button {
+        font-size: 10px;
+        padding: 4px;
+      }
+
+    }
+
+    /* Hover effect for the buttons */
+    .interested-button:hover,
+    .not-interested-button:hover {
+      background-color: #dcdcdc;
+    }
+
+    /* Interested button style */
+    .interested-button {
+      background-color: gainsboro;
+      color: black;
+    }
+
+    .interested-button:focus {
+      background-color: gray;
+    }
+
+    /* Not Interested button style */
+    .not-interested-button {
+      background-color: gainsboro;
+      color: black;
+    }
+
+    .not-interested-button:focus {
+      background-color: gray;
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      font-size: 14px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .comment-section {
+      display: none;
+      flex-direction: column;
+      padding: 10px 15px;
+      gap: 10px;
+    }
+
+    .comment-section input {
+      width: 100%;
+      padding: 8px 15px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+    }
+
+    .single-comment {
+      margin-top: 10px;
+      background: #f0f2f5;
+      padding: 8px 12px;
+      border-radius: 15px;
+      font-size: 13px;
+      max-width: 90%;
+      word-break: break-word;
+    }
+
+    .popup-message {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      z-index: 9999;
+      opacity: 0;
+      animation: popupAnim 0.3s forwards;
+    }
+
+    @keyframes popupAnim {
+      0% {
+        opacity: 0;
+        top: 0;
+      }
+
+      100% {
+        opacity: 1;
+        top: 20px;
+      }
+    }
+
+    .blurred {
+      filter: blur(5px);
+      transition: filter 0.3s ease;
+    }
+    .myimg{
+      width: 25px;
+    }
+    .text {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    #feed{
+      fill: blue;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="video-page">
+    <style>
+        
+      * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  
+  .mnav {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      border: 2px solid #F0F2F5;
+      box-shadow: 1px 5px 3px rgba(236, 236, 236, 0.5);
+      position: fixed;
+      z-index: 2;
+      background-color: white;
+  }
+  
+  .mdiv {
+      background-color: #F0F2F5;
+      width: 220px;
+      height: 44px;
+      display: flex;
+      justify-content: flex-start;
+      border-radius: 50px;
+      padding-left: 30px;
+      gap: 8px;
+  }
+  
+  .minput {
+      border: none;
+      font-size: 16px;
+      width: 120px;
+      background-color: #F0F2F5;
+  
+  }
+  
+  .msvg {
+      fill: gray;
+      width: 18px;
+  }
+  
+  .mlogo {
+      height: 46px;
+  }
+  
+  .msvg2 {
+      fill: gray;
+      width: 30px;
+  }
+  
+  .msvg2:active {
+      fill:blue;
+  }
+  
+  .micons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+  
+  }
+  
+  .two {
+      background-color: #F0F2F5;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      align-items: center;
+  }
+  
+  .mtwo {
+      fill: black;
+      width: 23px;
+  }
+  
+  .mcicon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+  }
+  
+  .mp {
+      height: 55px;
+      width: 55px;
+      margin-right: 1em;
+  
+  }
+  
+  .li {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+  }
+  
+
+  
+  .msectop {
+      background-color: white;
+      padding: 25px 10px;
+      border-radius: 15px;
+      margin-top: 10px;
+      border: 2px solid #F0F2F5;
+      box-shadow: 0px 3px 9px rgb(208 208 208 / 50%);
+      }
+  
+  .mimg {
+      display: flex;
+      justify-content: center;
+  
+  }
+  
+  .myinput {
+      height: auto;
+      width: 30vw;
+      font-size: 1.2vw;
+      border: 2px solid #F0F2F5;
+      border-radius: 50px;
+      align-items: center;
+      padding: 10px 10px;
+      background-color: #F0F2F5;
+  
+  
+  }
+  
+  .mline {
+      width: 100%;
+      margin: 15px 0;
+      border: 1px solid #F0F2F5;
+  
+  }
+  
+  .ma {
+      text-decoration: none;
+      color: black;
+      font-size: 1vw;
+      font-weight: 600;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      align-items: center;
+  }
+  .myma{
+    text-decoration: none;
+      color: black;
+      font-size: 1.1vw;
+      font-weight: 600;
+      display: flex !important;
+      gap: 15px;
+      justify-content: center;
+      align-items: center;
+  
+  }
+  .ma2{
+    gap: 8px;
+  }
+  
+  
+  .mydivm {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+  
+  
+  }
+  
+  .ntwo {
+      display: flex;
+      justify-content: center;
+      width: 7vw;
+      border-radius: 10px;
+      padding: 10px 0;
+  }
+  
+  
+  .ntwo:hover {
+      background-color:rgb(219, 219, 219);
+  }
+  
+  .nthree {
+      width: 34%;
+      /* display: flex; */
+      gap: 10px;
+  
+  }
+  .left{
+   width: 25% !important;
+   
+      
+   
+  }
+  .mainpage{
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: space-between;
+      background-color: #F2F4F7;
+      padding-top: 70px;
+  }
+  .mydivside{
+      width: 25%;
+      height: 1000px;
+      position: fixed;
+      max-height: 94vh; 
+    overflow-y: auto;
+    padding: 10px;
+      
+  }
+  .nfour{
+      width: 90%;
+      justify-content: flex-start;
+      padding-left: 20px;
+  
+  }
+  .mp2{
+      height: 35px;
+      width: 35px;
+      /* margin-right: 1em; */
+  
+  }
+  .mfp{
+      height: 50px;
+      width: 50px;
+  
+  }
+  
+  
+  
+      </style>
+  <!-- ------------------------------------------------------------------------------ -->
+      <div class="mnav">
+          <div class="li">
+            <div class="logo"><img class="mlogo" src="fb logo.png" alt=""></div>
+            <div class="mdiv">
+              <svg class="msvg" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                <path
+                  d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+              </svg>
+              <input type="text" class="minput" placeholder="search facebook">
+            </div>
+          </div>
+    
+    
+          <div class="micons">
+            <div class="ntwo">
+              <a href="#"><svg class="msvg2 mhome" id="mainhome" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                  <path
+                    d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c.2 35.5-28.5 64.3-64 64.3l-320.4 0c-35.3 0-64-28.7-64-64l0-160.4-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24zM352 224a64 64 0 1 0 -128 0 64 64 0 1 0 128 0zm-96 96c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80l-64 0z" />
+                </svg></a>
+            </div>
+    
+            <div class="ntwo">
+              <a href="#"><svg class="msvg2 friends" id="friends" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 640 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                  <path
+                    d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z" />
+                </svg></a>
+            </div>
+    
+            <div class="ntwo">
+    
+              <a href="#"><svg class="msvg2 feed"id="feed" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                  <path
+                    d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z" />
+                </svg></a>
+            </div>
+    
+            <div class="ntwo" >
+    
+              <a href="#" ><svg 
+                 class="msvg2 marketplace" id="marketplace" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                  <path
+                    d="M547.6 103.8L490.3 13.1C485.2 5 476.1 0 466.4 0L109.6 0C99.9 0 90.8 5 85.7 13.1L28.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM499.7 254.9c0 0 0 0-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3L448 384l-320 0 0-133.4c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3L64 384l0 64c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-64 0-131.4c-4 1-8 1.8-12.3 2.3z" />
+                </svg></a>
+            </div>
+    
+            <div class="ntwo">
+    
+              <a href="#"><svg  class="msvg2 mgroups group" id="groups" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                  <path
+                    d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
+                </svg></a>
+            </div>
+          </div>
+          <div class="mcicon">
+            <div class="micons two"  id="menuBtn">
+              <a href="#"><svg class="msvg3 mtwo "  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                  <path
+                    d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+                </svg></a>
+            </div>
+            <div class="micons two">
+              <a href="#"><svg class="msvg3 mtwo" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                  <path
+                    d="M256.6 8C116.5 8 8 110.3 8 248.6c0 72.3 29.7 134.8 78.1 177.9 8.4 7.5 6.6 11.9 8.1 58.2A19.9 19.9 0 0 0 122 502.3c52.9-23.3 53.6-25.1 62.6-22.7C337.9 521.8 504 423.7 504 248.6 504 110.3 396.6 8 256.6 8zm149.2 185.1l-73 115.6a37.4 37.4 0 0 1 -53.9 9.9l-58.1-43.5a15 15 0 0 0 -18 0l-78.4 59.4c-10.5 7.9-24.2-4.6-17.1-15.7l73-115.6a37.4 37.4 0 0 1 53.9-9.9l58.1 43.5a15 15 0 0 0 18 0l78.4-59.4c10.4-8 24.1 4.5 17.1 15.6z" />
+                </svg></a>
+            </div>
+            <div class="micons two">
+              <a href="#"><svg class="msvg3 mtwo"  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                  <path
+                    d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
+                </svg></a>
+            </div>
+            <div onclick="toggleCard()"><img class="mp " src="pimg.webp" alt="" style="cursor: pointer;"></div>
+    
+          </div>
+    
+        </div>
+  <div class="video-main">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>Video</h2>
+        <button class="settings-btn">⚙️</button>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="Search videos" />
+      </div>
+      <div class="menu">
+        <div class="menu-item active"><span class="icon"><img class="myimg" src="fund.png" alt=""></span><span class="text">Home</span></div>
+        <div class="menu-item"><span  class="icon"><img class="myimg" src="event.png" alt=""></span><span class="text">Live</span></div>
+        <div class="menu-item"><span class="icon"><img class="myimg" src="feed.png" alt=""></span><span class="text">Reels</span></div>
+        <div class="menu-item"><span class="icon"><img class="myimg" src="computer.png" alt=""></span><span class="text">Shows</span></div>
+        <div class="menu-item"><span class="icon"><img class="myimg" src="clock_11665804.png" alt=""></span><span class="text">Explore</span></div>
+        <div class="menu-item"><span class="icon"><img class="myimg" src="enjoy.png" alt=""></span><span class="text">Saved</span></div>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <!-- Video Posts 1 -->
+      <div class="post">
+        <div class="post-header">
+          <img src="story6.jpg"
+            class="profile-pic" />
+          <div class="post-info">
+            <h3>Hania <span style="font-weight:normal;color:gray;">· Follow</span></h3>
+            <span>1 May 2025 · 🌐</span>
+          </div>
+        </div>
+        <div class="post-caption">Too cute to handle, too animated to ignore!</div>
+        <div class="post-media">
+          <video controls autoplay muted loop>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="inaction-buttons">
+          <button class="interested-button" onclick="markInterest(this, 'interested')"> Interested</button>
+          <button class="not-interested-button" onclick="markInterest(this, 'notInterested')"> Not Interested</button>
+        </div>
+        <div class="post-stats">
+          <span class="like-count" data-likes="0">0 Likes</span> ·
+          <span class="comment-count" data-comments="0">0 Comments</span>
+        </div>
+        <div class="post-actions">
+          <button class="action-btn" onclick="likePost(this)">👍 Like</button>
+          <button class="action-btn" onclick="toggleComment(this)">💬 Comment</button>
+        </div>
+        <div class="comment-section">
+          <input type="text" class="commentInput" placeholder="Write a comment..." onkeypress="addComment(event)" />
+          <div class="comments-list"></div>
+        </div>
+      </div>
+      <!-- video post 2 -->
+      <div class="post" style="margin-top: 20px;">
+        <div class="post-header">
+          <img src="pimg.webp"
+            alt="Profile" class="profile-pic">
+          <div class="post-info">
+            <h3>Ali edits<span style="font-weight:normal; color: gray;">· Follow</span></h3>
+            <span>20 December 2024 · 🌐</span>
+          </div>
+        </div>
+
+        <div class="post-caption">
+          Representation of Kalesh culture
+        </div>
+
+        <div class="post-media">
+          <video controls autoplay loop muted class="post-video" width="100%">
+            <source src="4966542-hd_1920_1080_30fps.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="inaction-buttons">
+          <button class="interested-button" onclick="markInterest(this, 'interested')">Interested</button>
+          <button class="not-interested-button" onclick="markInterest(this, 'notInterested')">Not Interested</button>
+        </div>
+
+        <div class="post-stats">
+          <span class="like-count">0 Likes</span> · <span class="comment-count">0 Comments</span>
+        </div>
+
+        <div class="post-actions">
+          <button class="action-btn" onclick="likePost()">👍 Like</button>
+          <button class="action-btn" onclick="toggleComment()">💬 Comment</button>
+        </div>
+
+        <div class="comment-section" >
+          <input type="text" class="commentInput" placeholder="Write a comment..." onkeypress="addComment(haye)">
+          <div class="comments-list" >
+            <!-- Comments will appear here -->
+          </div>
+        </div>
+      </div>
+      <!-- video post 3 -->
+      <div class="post" style="margin-top: 20px;">
+        <div class="post-header">
+          <img src="badddadd.jpg"
+            alt="Profile" class="profile-pic">
+          <div class="post-info">
+            <h3>Ayesha Khan<span style="font-weight:normal; color: gray;">· Follow</span></h3>
+            <span>8 sep 2024 · 🌐</span>
+          </div>
+        </div>
+
+        <div class="post-caption">
+          Beauty of Lahore
+        </div>
+
+        <div class="post-media">
+          <video controls autoplay loop muted class="post-video" width="100%">
+            <source src="4403572-hd_1920_1080_30fps.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="post-stats">
+          <span class="like-count">0 Likes</span> · <span class="comment-count">0 Comments</span>
+        </div>
+        <div class="inaction-buttons">
+          <button class="interested-button" onclick="markInterest(this, 'interested')">Interested</button>
+          <button class="not-interested-button" onclick="markInterest(this, 'notInterested')">Not Interested</button>
+        </div>
+        <div class="post-actions">
+          <button class="action-btn" onclick="likePost()">👍 Like</button>
+          <button class="action-btn" onclick="toggleComment()">💬 Comment</button>
+        </div>
+
+        <div class="comment-section">
+          <input type="text" class="commentInput" placeholder="Write a comment..." onkeypress="addComment(hello)">
+          <div class="comments-list" >
+          </div>
+        </div>
+      </div>
+      <!-- post video 4 -->
+      <div class="post" style="margin-top: 20px;">
+        <div class="post-header">
+          <img src="story9.jpg"
+            alt="Profile" class="profile-pic">
+          <div class="post-info">
+            <h3>pkhtun edits<span style="font-weight:normal; color: gray;">· Follow</span></h3>
+            <span>7 July 2022 · 🌐</span>
+          </div>
+        </div>
+
+        <div class="post-caption">
+          "Lost in the beauty where earth whispers and the soul listens. 🌿🍃"
+        </div>
+
+        <div class="post-media">
+          <video controls autoplay loop muted class="post-video" width="100%">
+            <source src="3685374-hd_1920_1080_30fps.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="post-stats">
+          <span class="like-count">0 Likes</span> · <span class="comment-count">0 Comments</span>
+        </div>
+        <div class="inaction-buttons">
+          <button class="interested-button" onclick="markInterest(this, 'interested')"> Interested</button>
+          <button class="not-interested-button" onclick="markInterest(this, 'notInterested')"> Not Interested</button>
+        </div>
+        <div class="post-actions">
+          <button class="action-btn" onclick="likePost()">👍 Like</button>
+          <button class="action-btn" onclick="toggleComment()">💬 Comment</button>
+        </div>
+
+        <div class="comment-section">
+          <input type="text" class="commentInput" placeholder="Write a comment..." onkeypress="addComment(event)">
+          <div class="comments-list">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dropdown-card" id="dropdownCard">
+  <div class="profile-section">
+    <div class="profile">
+      <img src="pimg.webp" alt="User">
+      <span>Mrym's Corner</span>
+    </div>
+    <div class="profile">
+      <img src="shopp.avif" alt="Shop">
+      <span>Swag Shop</span>
+    </div>
+    <div class="profile">
+      <img src="shopp.avif" alt="Products">
+      <span>Swag Shop products</span>
+    </div>
+    <div class="see-all">See all profiles</div>
+  </div>
+
+  <style>
+  .dropdown-card {
+    position: absolute;
+    top: 100px;
+    right: 50px;
+    width: 300px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    display: none;
+    z-index: 10;
+  }
+
+  .profile-section {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .profile img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .see-all {
+    padding: 8px;
+    text-align: center;
+    border-radius: 6px;
+    background: #f0f2f5;
+    cursor: pointer;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    background: #f0f2f5;
+  }
+
+  .option i {
+    margin-right: 10px;
+  }
+
+  .footer {
+    font-size: 12px;
+    color: #888;
+    margin-top: 15px;
+    text-align: center;
+  }
+    .cardimg{
+      width: 25px;
+    }
+  </style>
+    <div class="option"><i><img class="cardimg" src="messenger.png" alt=""></i>Messenger</div>
+
+  
+    <div class="option"><i><img class="cardimg" src="kidmessenger.png" alt=""></i>Help & support</div>
+  <div class="option"><i><img class="cardimg" src="community_11391637.png" alt=""></i>Display & accessibility</div>
+  <div class="option"><i><img class="cardimg" src="notification.png" alt=""></i>Give feedback <span style="margin-left:auto;font-size:12px;">CTRL B</span></div>
+  <div class="option"><i><img class="cardimg" src="see less.png" alt=""></i>Log out</div>
+
+  <div class="footer">
+    Privacy · Terms · Advertising · Ad choices · Cookies · More · Meta © 2025
+  </div>
+</div>
+
+<div id="menuCard" class="menu-card hidden">
+  <ul>
+    <div class="cmenu friends">
+      <a class="cimg " href="#">
+        <img src="friendship_11136506.png" class="mp2" alt="">
+        Friends
+      </a>
+    </div>
+    <div class="cmenu groups">
+      <a class="cimg " href="#" id="groups">
+        <img src="community_11391637.png" class="mp2" alt="">
+        Groups
+      </a>
+    </div>
+
+    <div class="cmenu feed">
+      <a class="cimg " href="#">
+        <img src="smart-tv_8077532.png" class="mp2" alt="">
+        Video
+      </a>
+    </div>
+
+    <div class="cmenu marketplace">
+      <a class="cimg" href="#">
+        <img src="marketplace_16842298.png" class="mp2" alt="">
+        Marketplace
+      </a>
+    </div>
+  </ul>
+</div>
+<style>
+
+/* 
+  body {
+    font-family: Arial, sans-serif;
+    margin: 50px;
+  } */
+  .cimg{
+    width: 20px;
+    text-decoration: none;
+    display: flex;
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
+    gap: 5px;
+    padding: 10px;
+  }
+  .cmenu{
+    align-items: center;
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
+  }
+  .menu-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* #menuBtn {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+  } */
+  
+  .menu-card {
+    position: absolute;
+    top: 90px;
+    right: 190px;
+    background: white;
+    border: 1px solid #ccc;
+    width: 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    z-index: 100;
+  }
+  @media (max-width: 800px) {
+    .menu-card {
+    position: absolute;
+    top: 90px;
+    right: 10px;
+    background: white;
+    border: 1px solid #ccc;
+    width: 250px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    z-index: 100;
+  }
+  }
+  
+  .menu-card ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+  }
+ 
+  
+  .hidden {
+    display: none;
+  }
+  
+  </style>
+
+
+<script>
+
+document.querySelectorAll(".mlogo").forEach(function(element) {
+  element.onclick = function() {
+    window.location.href = "fbhome.html";
+  };
+});
+
+const menuBtn = document.getElementById('menuBtn');
+const menuCard = document.getElementById('menuCard');
+
+menuBtn.addEventListener('click', () => {
+  menuCard.classList.toggle('hidden');
+});
+
+
+function toggleCard() {
+    const card = document.getElementById('dropdownCard');
+    card.style.display = card.style.display === 'block' ? 'none' : 'block';
+  }
+
+
+  document.querySelectorAll(".groups").forEach(function(element) {
+  element.onclick = function() {
+    window.location.href = "groups.html";
+  };
+});
+
+document.querySelectorAll(".friends").forEach(function(element) {
+  element.onclick = function() {
+    window.location.href = "friends.html";
+  };
+});
+
+document.querySelectorAll(".feed").forEach(function(element) {
+  element.onclick = function() {
+    window.location.href = "feed.html";
+  };
+});
+
+document.querySelectorAll(".marketplace").forEach(function(element) {
+  element.onclick = function() {
+    window.location.href = "market.html";
+  };
+});
+
+document.querySelectorAll(".mhome").forEach(function(element) {
+  element.onclick = function() {
+    window.location.href = "fbhome.html";
+  };
+});
+
+
+
+
+
+
+
+
+
+  function likePost(button) {
+    const likeCountSpan = button.closest('.post').querySelector('.like-count');
+    let currentLikes = parseInt(likeCountSpan.getAttribute('data-likes'), 10);
+
+    // Toggle like
+    if (button.classList.contains('liked')) {
+      currentLikes--;
+      button.classList.remove('liked');
+    } else {
+      currentLikes++;
+      button.classList.add('liked');
+    }
+
+    likeCountSpan.setAttribute('data-likes', currentLikes);
+    likeCountSpan.textContent = `${currentLikes} Likes`;
+  }
+
+  function toggleComment(button) {
+    const commentSection = button.closest('.post').querySelector('.comment-section');
+    commentSection.style.display = commentSection.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  function addComment(event) {
+    if (event.key === 'Enter') {
+      const input = event.target;
+      const commentText = input.value.trim();
+      if (commentText !== "") {
+        const commentDiv = document.createElement('div');
+        commentDiv.classList.add('single-comment');
+        commentDiv.textContent = commentText;
+        const commentsList = input.nextElementSibling;
+        commentsList.appendChild(commentDiv);
+
+        // update comment count
+        const commentCountSpan = input.closest('.post').querySelector('.comment-count');
+        let currentComments = parseInt(commentCountSpan.getAttribute('data-comments'), 10);
+        currentComments++;
+        commentCountSpan.setAttribute('data-comments', currentComments);
+        commentCountSpan.textContent = `${currentComments} Comments`;
+
+        input.value = "";
+      }
+    }
+  }
+
+  function markInterest(button, type) {
+    const post = button.closest('.post');
+
+    if (type === 'notInterested') {
+      alert("This type of video will not be shown again.");
+      post.remove(); // Remove the post after alert
+    } else if (type === 'interested') {
+      alert("You will see more videos like this.");
+    }
+  }
+</script>
+
+</body>
+
+</html>

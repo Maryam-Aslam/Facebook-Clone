@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Form</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      overflow-x: hidden; 
+    }
+
+    .fb-main {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 20px; 
+    }
+
+    .fb {
+      color: #1877f2;
+      font-size: 50px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+      .fb {
+        font-size: 30px;
+      }
+    }
+
+    .container, .login, .forgot {
+      background-color: white;
+      width: 100%;
+      max-width: 400px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .create {
+      font-size: 25px;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    @media (max-width: 768px) {
+      .create {
+        font-size: 20px;
+      }
+    }
+
+    .h5 {
+      text-align: center;
+      color: gray;
+      margin-bottom: 10px;
+    }
+
+    .hr {
+      background-color: rgb(179, 177, 177);
+      margin-top: 0.5rem;
+      height: 3px;
+      width: 100%;
+      border: none;
+    }
+
+    #name, #srname {
+      width: 96%;
+      padding: 10px;
+      margin: 10px 1%;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      display: inline-block;
+    }
+    @media (max-width: 768px) {
+      #name, #srname {
+        width: 100%;
+        margin: 5px 0;
+      }
+    }
+
+    .db {
+      font-size: 12px;
+      color: rgb(51, 50, 50);
+      margin-left: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .select {
+      width: 30%;
+      padding: 10px;
+      margin: 10px 1%;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    @media (max-width: 768px) {
+      .select {
+        width: 100%;
+        margin: 5px 0;
+      }
+    }
+
+    .radio {
+      display: inline-block;
+      margin: 10px 1%;
+    }
+
+    .email, .password, .email1 {
+      width: 96%;
+      padding: 10px;
+      margin: 10px 2%;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .email, .password, .email1 {
+        width: 100%;
+        margin: 5px 0;
+      }
+    }
+
+    #btnsignup {
+      border-radius: 9px;
+      font-size: 16px;
+      color: aliceblue;
+      background-color: green;
+      padding: 10px;
+      margin: 20px auto;
+      display: block;
+      width: 50%;
+      text-align: center;
+      border: none;
+    }
+
+    .link {
+      text-align: center;
+      margin: 10px 0;
+      color: blue;
+      cursor: pointer;
+    }
+
+    .blue-btn, .resend {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background: rgb(40, 40, 201);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      margin: 10px 0;
+    }
+
+    pre {
+      font-size: 9px;
+      color: rgb(68, 67, 67);
+      margin: 10px;
+      white-space: pre-wrap;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="registration-page">
+  <div class="fb-main">
+    <h1 class="fb">facebook</h1>
+
+    <!-- Signup page -->
+    <div class="container" id="signupPage">
+      <form id="signupForm">
+        <h3 class="create">Create a new account</h3>
+        <h5 class="h5">It's quick and easy<hr class="hr"></h5>
+
+        <input type="text" placeholder="First name" id="name" required>
+        <input type="text" placeholder="Surname" id="srname" required>
+
+        <p class="db">Date of Birth</p>
+        <select id="day" class="select">
+          <option value="">Day</option>
+          <script>for (let i = 1; i <= 31; i++) { document.write(`<option>${i}</option>`); }</script>
+        </select>
+        <select id="month" class="select" required>
+          <option value="">Month</option>
+          <option>Jan</option><option>Feb</option><option>March</option>
+          <option>April</option><option>May</option><option>June</option>
+          <option>July</option><option>Aug</option><option>Sep</option>
+          <option>Oct</option><option>Nov</option><option>Dec</option>
+        </select>
+        <select id="year" class="select" required>
+          <option value="">Year</option>
+          <script>for (let y = 1900; y <= 2025; y++) { document.write(`<option>${y}</option>`); }</script>
+        </select>
+
+        <p class="db">Gender</p>
+        <div class="radio">
+          <input type="radio" name="gender" id="female" required>
+          <label for="female" style="font-size: 12px;">Female</label>
+        </div>
+        <div class="radio">
+          <input type="radio" name="gender" id="male" required>
+          <label for="male" style="font-size: 12px;">Male</label>
+        </div>
+        <div class="radio">
+          <input type="radio" name="gender" id="custom" required>
+          <label for="custom" style="font-size: 12px;">Custom</label>
+        </div>
+
+        <input type="email" placeholder="put email address here" id="sign-up-email" class="email" required>
+        <input type="password" placeholder="New password" id="sign-up-password" class="password" required>
+
+        <pre>People who use our service may have uploaded your contact information to 
+Facebook. <span style="color: blue;">Learn more.</span></pre>
+        <pre>By clicking Sign Up, you agree to our Terms, <span style="color: blue;">Privacy Policy</span> & 
+<span style="color: blue;">Cookies Policy.</span> You may receive SMS notifications from us and can opt out at any time.</pre>
+
+        <button id="btnsignup" type="submit">Sign Up</button>
+        <div class="link" onclick="showPage('loginPage')">Already have an account?</div>
+      </form>
+    </div>
+
+    <!-- Login page -->
+    <div id="loginPage" class="login" style="display: none;">
+      <h3 style="text-align: center;margin-top: 1.5rem;">Log in to Facebook</h3>
+      <form id="loginForm">
+        <input type="email" placeholder="put Email address here" class="email" id="login-email" required>
+        <input type="password" placeholder="Password" class="password" id="login-password" required>
+        <button class="blue-btn" type="submit">Log in</button>
+        <div style="margin-bottom: 1rem;">
+          <div class="link" onclick="showPage('forgotPage')" style="font-size: 12px;">Forgotten account?</div>
+          <div class="link" onclick="showPage('signupPage')" style="font-size: 12px;">Sign up for Facebook</div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Forgot Password page -->
+    <div id="forgotPage" class="forgot" style="display: none;">
+      <h3 style="text-align: center;margin-top: 1.5rem;">Reset Password</h3>
+      <form id="resetForm">
+        <input type="text" placeholder="Mobile number or email here" id="email1" class="email1" required>
+        <button class="resend" type="submit">Send Reset Link</button>
+        <div class="link" onclick="showPage('loginPage')">Back to Login</div>
+      </form>
+    </div>
+  </div></div>
+  <!-- Main Home page -->
+<div id="mainHome" style="display: none;">
+  <div class="mnav">
+    <div class="li">
+      <div class="logo"><img class="mlogo" src="fb logo.png" alt=""></div>
+      <div class="mdiv">
+        <svg class="msvg" xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+          <path
+            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+        </svg>
+        <input type="text" class="minput" placeholder="search facebook">
+      </div>
+    </div>
+
+
+    <div class="micons">
+      <div class="ntwo">
+        <a href="#"><svg class="msvg2 mhome" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path
+              d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c.2 35.5-28.5 64.3-64 64.3l-320.4 0c-35.3 0-64-28.7-64-64l0-160.4-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24zM352 224a64 64 0 1 0 -128 0 64 64 0 1 0 128 0zm-96 96c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80l-64 0z" />
+          </svg></a>
+      </div>
+
+      <div class="ntwo">
+        <a href="#"><svg class="msvg2 friends" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 640 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path
+              d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z" />
+          </svg></a>
+      </div>
+
+      <div class="ntwo">
+
+        <a href="#"><svg class="msvg2 feed" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path
+              d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z" />
+          </svg></a>
+      </div>
+
+      <div class="ntwo" >
+
+        <a href="#" ><svg 
+           class="msvg2 marketplace" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path
+              d="M547.6 103.8L490.3 13.1C485.2 5 476.1 0 466.4 0L109.6 0C99.9 0 90.8 5 85.7 13.1L28.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM499.7 254.9c0 0 0 0-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3L448 384l-320 0 0-133.4c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3L64 384l0 64c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-64 0-131.4c-4 1-8 1.8-12.3 2.3z" />
+          </svg></a>
+      </div>
+
+      <div class="ntwo">
+
+        <a href="#"><svg class="groups msvg2"  xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path
+              d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
+          </svg></a>
+      </div>
+    </div>
+    <div class="mcicon">
+      <div class="micons two"  id="menuBtn" >
+        <a href="#"><svg class="msvg3 mtwo  " xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path
+              d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+          </svg></a>
+      </div>
+      <div class="micons two">
+        <a href="#"><svg class="msvg3 mtwo" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path
+              d="M256.6 8C116.5 8 8 110.3 8 248.6c0 72.3 29.7 134.8 78.1 177.9 8.4 7.5 6.6 11.9 8.1 58.2A19.9 19.9 0 0 0 122 502.3c52.9-23.3 53.6-25.1 62.6-22.7C337.9 521.8 504 423.7 504 248.6 504 110.3 396.6 8 256.6 8zm149.2 185.1l-73 115.6a37.4 37.4 0 0 1 -53.9 9.9l-58.1-43.5a15 15 0 0 0 -18 0l-78.4 59.4c-10.5 7.9-24.2-4.6-17.1-15.7l73-115.6a37.4 37.4 0 0 1 53.9-9.9l58.1 43.5a15 15 0 0 0 18 0l78.4-59.4c10.4-8 24.1 4.5 17.1 15.6z" />
+          </svg></a>
+      </div>
+      <div class="micons two"  onclick="toggleNotifications()">
+        <a href="#"><svg class="msvg3 mtwo" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path
+              d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
+          </svg></a>
+      </div>
+      <div onclick="toggleCard()"><img class="mp " src="pimg.webp" alt="" style="cursor: pointer;"></div>
+
+    </div>
+
+  </div>
+
+  <div class="mainpage">
+
+    <!-- lefy side barr -->
+
+    <div class=" left">
+      <div class=" mydivside">
+        <!-- Profile Section -->
+        <div class="ntwo nthree nfour">
+          <a class="ma" href="#">
+            <img class="mfp mp2" src="pimg.webp" alt="" id="adding">
+            Mrym's Corner
+          </a>
+        </div>
+
+        <!-- Sidebar Menu Items -->
+        <div class="ntwo nthree nfour">
+          <a class="ma" href="#">
+            <img class=" mp2" src="infinity.png" alt="">
+            Meta AI
+          </a>
+        </div>
+
+        <div class="ntwo nthree nfour friends">
+          <a class="ma " href="#">
+            <img src="friendship_11136506.png" class="mp2" alt="">
+            Friends
+          </a>
+        </div>
+
+        <div class="ntwo nthree nfour">
+          <a class="ma" href="#">
+            <img src="clock_11665804.png" class="mp2" alt="">
+            Memories
+          </a>
+        </div>
+
+        <div class="ntwo nthree nfour">
+          <a class="ma" href="#">
+            <img src="favorite_9783939.png" class="mp2" alt="">
+            Saved
+          </a>
+        </div>
+
+        <div class="ntwo nthree nfour groups">
+          <a class="ma " href="#" id="groups">
+            <img src="community_11391637.png" class="mp2" alt="">
+            Groups
+          </a>
+        </div>
+
+        <div class="ntwo nthree nfour feed">
+          <a class="ma " href="#">
+            <img src="smart-tv_8077532.png" class="mp2" alt="">
+            Video
+          </a>
+        </div>
+
+        <div class="ntwo nthree nfour marketplace">
+          <a class="ma" href="#">
+            <img src="marketplace_16842298.png" class="mp2" alt="">
+            Marketplace
+          </a>
+        </div>
+
+        <!-- SEE MOREE -->
+        <div class="menu">
+
+          <div class="ntwo nthree nfour">
+            <a class="ma" href="#" class="dropdown-btn" onclick="event.preventDefault(); showDropdown(); ">
+              <img src="seemore.png" class="mp2" alt="">
+              See More
+            </a>
+          </div>
+
+          <!-- ------- -->
+          <div class="dropdown-content" id="dropdownContent">
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="grapg.png" class="mp2" alt="">
+                Ads Manger
+              </a>
+            </div>
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="gift.png" class="mp2" alt="">
+                Birthday
+              </a>
+            </div>
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="plant.png" class="mp2" alt="">
+                Climate Science center
+              </a>
+            </div>
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="event.png" class="mp2" alt="">
+                Events
+              </a>
+            </div>
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="feed.png" class="mp2" alt="">
+                Feeds
+              </a>
+            </div>
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="fund.png" class="mp2" alt="">
+                Fundraisers
+              </a>
+            </div>
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="game.png" class="mp2" alt="">
+                Gaming video
+              </a>
+            </div>
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="messenger.png" class="mp2" alt="">
+                Messenger
+              </a>
+            </div>
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="kidmessenger.png" class="mp2" alt="">
+                Messenger Kids
+              </a>
+            </div>
+
+            <div class="ntwo nthree nfour">
+              <a class="ma" href="#">
+                <img src="order.png" class="mp2" alt="">
+                Orders and Payments
+              </a>
+            </div>
+
+
+            <div class="ntwo nthree nfour"">
+<a class=" ma" href="#" onclick="event.preventDefault(); closeDropdown(); ">
+              <img src="see less.png" class="mp2" alt="">
+              See Less
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- //section one -->
+    <div class="midsec">
+      <div class="msectop">
+        <div class="li">
+          <div class="logo"><img class="mlogo mp mp2 mfp" src="pimg.webp" alt=""></div>
+          <div class=" mdiv2">
+            <input type="text" class=" myinput" placeholder="What's on your mind?">
+          </div>
+        </div>
+        <hr class="mline">
+
+
+        <div class="mydivm">
+          <div class="ntwo nthree">
+            <a class="ma ma2 myma" href="#"><img
+                src="https://static.xx.fbcdn.net/rsrc.php/v4/yr/r/c0dWho49-X3.png?_nc_eui2=AeGPbqu0l0SzJo3vYZQw-Y6KueRic5Ym8Wm55GJzlibxaUtnqqT0HhGFw_3lpa8PwraYyLx0wLeOokam6n0ElYMp"
+                alt=""></svg>Live video</a>
+          </div>
+          <div class="ntwo nthree">
+            <!-- Hidden file input -->
+            <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="uploadPost()">
+
+            <!-- Clickable image to open file dialog -->
+            <a class="ma ma2 myma" href="#" onclick="document.getElementById('imageInput').click(); return false;">
+              <img
+                src="https://static.xx.fbcdn.net/rsrc.php/v4/y7/r/Ivw7nhRtXyo.png?_nc_eui2=AeEmxAYIBZ3jCstFr5fo-_xUkBVQC4m7dx6QFVALibt3Hp6qV6pqniRKhTbKrZqlTClXo06oc9J78runaZwJg5gB"
+                alt="">
+              Photos/Videos
+            </a>
+          </div>
+
+          <div class="ntwo nthree">
+            <a class="ma ma2 myma" href="#"><img
+                src="https://static.xx.fbcdn.net/rsrc.php/v4/yd/r/Y4mYLVOhTwq.png?_nc_eui2=AeFB0DcRSvzrUQjxtQ3y3iXvfPQ6N5_OUfV89Do3n85R9SEmYuc0I1aFpQnianhLTYOMIV6B9GhOkq9kuXElri0B"
+                alt=""></svg>Feelings/Activity</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="msectop">
+        <div class="li" id="linked">
+          
+          <div class="mdiv2">
+            <span class="mb2 mb3">
+              <b  class="mb mb1">Story Page</b><br>
+            </span>
+
+          </div>
+
+
+
+
+
+        </div>
+        <div >
+          <!-- Add Create Story Button -->
+          <div class="create-story-btn" style="cursor: pointer; padding: 10px ;  color: black; margin: 10px; display: flex; 
+          border: 2px solid grey;
+          border-radius: 8px;"> 
+           <div class="logo"><svg class="mlogo mp mp2 mfp mn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            fill="currentColor" class="size-6">
+            <path fill-rule="evenodd"
+              d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+         <span class="mb2 mb3">
+          <b class="mb mb1">Create story</b><br>
+          Share a photo or write something
+        </span>
+       
+            
+          </div>
+
+          <!-- Add Dialog -->
+          <style>
+            #storyDialog {
+              display: none;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              background: white;
+              padding: 24px;
+              width: 90%;
+              max-width: 400px;
+              border-radius: 12px;
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+              z-index: 1000;
+              font-family: 'Segoe UI', sans-serif;
+            }
+          
+            #storyDialog h3 {
+              margin-top: 0;
+              font-size: 20px;
+              margin-bottom: 10px;
+            }
+          
+            #storyDialog p {
+              font-size: 14px;
+              color: #555;
+              margin-bottom: 20px;
+            }
+          
+            #storyDialog .btn {
+              padding: 10px 18px;
+              border: none;
+              border-radius: 6px;
+              cursor: pointer;
+              font-size: 14px;
+            }
+          
+            #storyDialog .btn-primary {
+              background-color: #1877f2;
+              color: white;
+            }
+          
+            #storyDialog .btn-secondary {
+              background-color: #e4e6eb;
+              color: #050505;
+              margin-left: 10px;
+            }
+          
+            @media (max-width: 480px) {
+              #storyDialog {
+                padding: 16px;
+              }
+          
+              #storyDialog .btn {
+                width: 100%;
+                margin-top: 10px;
+              }
+          
+              #storyDialog .btn-secondary {
+                margin-left: 0;
+              }
+            }
+          </style>
+          
+          <div id="storyDialog">
+            <h3>Create Story</h3>
+            <p>Choose an image for your story</p>
+            <input type="file" id="storyFileInput" accept="image/*" style="display: none;">
+            <button class="btn btn-primary" onclick="document.getElementById('storyFileInput').click()">Select Image</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('storyDialog').style.display='none'">Cancel</button>
+          </div>
+          
+        </div>
+
+
+        <style>
+          .postm {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+          }
+        </style>
+
+      </div>
+      <!-- story section designing here -->
+      <div class="story-containerm">
+        <div class="contentm">
+          <div class="prem ">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
+          </div>
+
+
+          <div class="storiesm">
+            <!-- <div class="storym">
+              <img src="story1.webp" alt="">
+              <div class="author">Maryam Aslam</div>
+          </div>
+          <div class="storym">
+              <img src="story2.jpg" alt="">
+              <div class="author">Amina </div>
+          </div>
+          <div class="storym">
+              <img src="story6.jpg" alt="">
+              <div class="author">Asthetic vibes</div>
+          </div>
+          <div class="storym">
+              <img src="story3.jfif" alt="">
+              <div class="author">Muhammad</div>
+          </div>
+          <div class="storym">
+              <img src="story4.jpg" alt="">
+              <div class="author">Fatima Zahra</div>
+          </div>
+          <div class="storym">
+              <img src="post2.jfif" alt="">
+              <div class="author">Hussain</div>
+          </div>
+
+          <div class="storym">
+              <img src="story8.jpg" alt="">
+              <div class="author">Dr Noor</div>
+          </div>
+          <div class="storym">
+              <img src="story9.jpg" alt="">
+              <div class="author">Tour guide</div>
+          </div>
+          <div class="storym">
+              <img src="story5.webp" alt="">
+              <div class="author">Webdev here</div>
+          </div> -->
+          </div>
+
+          <div class="nextm samem active">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            </svg>
+
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- POST ONE COMPLETE -->
+      <div id="postContainer"></div>
+
+
+
+      <!-- ----------------------------------- -->
+
+
+      <!-- ---------------------------------     -->
+
+      <div class="post">
+        <div class="post-header">
+          <img src="pimg.webp" alt="Profile" class="profile-pic">
+          <div class="post-user-info">
+            <h3>Maryam Aslam · <span>Follow</span></h3>
+            <p>29 April at 14:30 · 🌍</p>
+          </div>
+        </div>
+        <div class="post-text">
+          <b>Just discovered how powerful digital learning can be.</b><br>
+          Exploring new ideas every day is truly life-changing!
+        </div>
+
+        <div class="post-image">
+          <img src="https://emudhra.com/hubfs/Imported_Blog_Media/Z9zIzio7SX3Ys9vlfCnh.webp" alt="Post Image">
+        </div>
+        <div class="post-stats">
+          <span class="like-count">👍 760</span>
+          <span class="comment-count">comments · 9 shares</span>
+        </div>
+        <div class="post-actions">
+          <button onclick="likePost()">Like</button>
+          <button onclick="toggleCommentBox()">Comment</button>
+          <button>Share</button>
+        </div>
+
+        <!-- Comment Input (hidden initially) -->
+        <div class="comment-box" style="display:none; margin-top: 10px;">
+          <input type="text" class="comment-input" placeholder="Write a comment..." />
+          <button onclick="postComment()">Post</button>
+        </div>
+
+        <!-- Display Comments -->
+        <div class="comments-list" style="margin-top:10px;"></div>
+      </div>
+
+
+      <!-- ------------------------------------     -->
+
+      <div class="post">
+        <div class="post-header">
+          <img src="https://wallpapers.com/images/hd/cool-profile-picture-paper-bag-head-4co57dtwk64fb7lv.jpg"
+            alt="Profile" class="profile-pic">
+          <div class="post-user-info">
+            <h3>Ali Raza · <span>Follow</span></h3>
+            <p>29 April at 21:00 · 🌎</p>
+          </div>
+        </div>
+        <div class="post-text">
+          Small steps every day lead to big changes.<br>
+          Keep moving forward, no matter how slow!
+        </div>
+
+        <div class="post-image">
+          <img src="https://miro.medium.com/v2/resize:fit:1400/1*zh2NzPpff_oKqVFGPswzgQ.png" alt="Post Image">
+        </div>
+        <div class="post-stats">
+          <span class="like-count">👍 525</span>
+          <span class="comment-count">comments · 3 shares</span>
+        </div>
+        <div class="post-actions">
+          <button onclick="likePost()">Like</button>
+          <button onclick="toggleCommentBox()">Comment</button>
+          <button>Share</button>
+        </div>
+
+        <!-- Comment Input (hidden initially) -->
+        <div class="comment-box" style="display:none; margin-top: 10px;">
+          <input type="text" class="comment-input" placeholder="Write a comment..." />
+          <button onclick="postComment()">Post</button>
+        </div>
+
+        <!-- Display Comments -->
+        <div class="comments-list" style="margin-top:10px;"></div>
+      </div>
+
+
+      <!-- -------------------------- -->
+      <div class="post">
+        <div class="post-header">
+          <img src="https://mrwallpaper.com/images/hd/girl-with-hair-ribbon-instagram-profile-woc45tdoykpg3si2.jpg"
+            alt="Profile" class="profile-pic">
+          <div class="post-user-info">
+            <h3>Fatima Noor · <span>Follow</span></h3>
+            <p>29 April at 18:45 · 🌐</p>
+          </div>
+        </div>
+        <div class="post-text">
+          Learning something new every day keeps the mind fresh.<br>
+          <b>Stay curious and keep growing!</b>
+        </div>
+
+        <div class="post-image">
+          <img src="https://www.weareteachers.com/wp-content/uploads/Growth-Mindset-Quotes-Feature-1.jpg"
+            alt="Post Image">
+        </div>
+        <div class="post-stats">
+          <span class="like-count">👍 525</span>
+          <span class="comment-count">comments · 144 shares</span>
+        </div>
+        <div class="post-actions">
+          <button onclick="likePost()">Like</button>
+          <button onclick="toggleCommentBox()">Comment</button>
+          <button>Share</button>
+        </div>
+
+        <!-- Comment Input (hidden initially) -->
+        <div class="comment-box" style="display:none; margin-top: 10px;">
+          <input type="text" class="comment-input" placeholder="Write a comment..." />
+          <button onclick="postComment()">Post</button>
+        </div>
+
+        <!-- Display Comments -->
+        <div class="comments-list" style="margin-top:10px;"></div>
+      </div>
+
+
+      <!-- -------------------------------- -->
+
+      <!-- ----------------------- -->
+
+      <!-- POST ONE COMPLETE -->
+
+      <div class="post">
+        <div class="post-header">
+          <img
+            src="https://play-lh.googleusercontent.com/urA9eBT4RU3aM8XO9ygAZMBgD-8FHFsCJw9FxGTMZP4NT_CWFLfOM8RQmLQWWxxhTXQ=w526-h296-rw"
+            alt="Profile" class="profile-pic">
+          <div class="post-user-info">
+            <h3>Muhammad Salman Abazai · <span>Follow</span></h3>
+            <p>24 April at 09:00 · 🌎</p>
+          </div>
+        </div>
+        <div class="post-text">
+          پرسنل برانڈ بنانے کا شوق سب کو ہوتا ہے،<br>
+          لیکن بہت سے لوگ یہ برانڈ خود کو دکھانے کے لیے بناتے ہیں ۔۔۔
+        </div>
+        <div class="post-image">
+          <img src="https://neilpatel.com/wp-content/uploads/2017/09/blog-post-image-guide.jpg" alt="Post Image">
+        </div>
+        <div class="post-stats">
+          <span class="like-count">👍 616</span>
+          <span class="comment-count">77 comments · 409 shares</span>
+        </div>
+        <div class="post-actions">
+          <button onclick="likePost()">Like</button>
+          <button onclick="toggleCommentBox()">Comment</button>
+          <button>Share</button>
+        </div>
+
+        <!-- Comment Input (hidden initially) -->
+        <div class="comment-box" style="display:none; margin-top: 10px;">
+          <input type="text" class="comment-input" placeholder="Write a comment..." />
+          <button onclick="postComment()">Post</button>
+        </div>
+
+        <!-- Display Comments -->
+        <div class="comments-list" style="margin-top:10px;"></div>
+      </div>
+      <!-- ----------------------------- -->
+      <div class="post">
+        <div class="post-header">
+          <img src="https://media.craiyon.com/2023-10-25/b65f72d6d11a48c1bc560059cc36e31f.webp" alt="Profile"
+            class="profile-pic">
+          <div class="post-user-info">
+            <h3>Muhammad Hussain · <span>Follow</span></h3>
+            <p>20 April at 10:00 · 🌎</p>
+          </div>
+        </div>
+        <div class="post-text">
+          JUst explore how wide youtube info can change your thoughts<br>
+          Learning about it is gonna worth it.
+        </div>
+        <div class="post-image">
+          <img
+            src="https://www.socialpilot.co/wp-content/uploads/2024/12/What-is-the-Best-Time-to-Post-on-YouTube.webp"
+            alt="Post Image">
+        </div>
+        <div class="post-stats">
+          <span class="like-count">👍 5</span>
+          <span class="comment-count">comments · 1 shares</span>
+        </div>
+        <div class="post-actions">
+          <button onclick="likePost()">Like</button>
+          <button onclick="toggleCommentBox()">Comment</button>
+          <button>Share</button>
+        </div>
+
+        <!-- Comment Input (hidden initially) -->
+        <div class="comment-box" style="display:none; margin-top: 10px;">
+          <input type="text" class="comment-input" placeholder="Write a comment..." />
+          <button onclick="postComment()">Post</button>
+        </div>
+
+        <!-- Display Comments -->
+        <div class="comments-list" style="margin-top:10px;"></div>
+      </div>
+
+
+      <!-- ------------------------------------     -->
+      <!-- this is styling for post -->
+
+
+    </div>
+
+
+    <!-- right sidebar start from here -->
+
+    <div class="  right">
+      <div class=" mydivside mydivright">
+        <!-- Profile Section -->
+        <div>
+          <P class="mspo">Sponsored</P>
+        </div>
+        <div class="ntwo nthree nfour nfive">
+          <a class="ma" href="#">
+            <img class=" maddimg"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3TisrI-ueKVlbeOgkbW6ABX4Y9soEnJhXbA&s"
+              alt="">
+            <span class="mb2"><b class="mb">Shine brighter with our handcrafted, timeless jewelry. </b> <br>Shop Now
+              at fatimaluxe.store</span>
+          </a>
+        </div>
+
+        <div class="ntwo nthree nfour nfive">
+          <a class="ma" href="#">
+            <img class=" maddimg " src="badddadd.jpg" alt="">
+            <span class="mb2"><b class="mb">اپنی شان بڑھائیں – فاطمہ لگژ بیگز کے ساتھ! </b> <br>آج ہی آرڈر کریں:
+              fatimaluxe.store
+
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- home page html is completed here -->
+
+
+<!-- story full view section designing   this is anotherpage but converted into div and its display is none -->
+<div id="storypage">
+<div class="mnavma">
+  <div class="limama">
+    <div class="logoma cuttma" id="linked-backma">
+      <svg class="mlogoma mnma" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </div>
+    <div class="logoma"><img class="mlogoma" src="fb logo.png" alt=""></div>
+  </div>
+
+  <div class="mciconma">
+    <div class="miconsma twoma">
+      <a href="#"><svg class="mtwoma" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+          <path
+            d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+        </svg></a>
+    </div>
+    <div><img class="msvg3ma" src="pimg.webp" alt=""></div>
+  </div>
+</div>
+
+<div class="mainpagema">
+  <div class="leftma">
+    <div class="mydivsidema">
+      <div class="ntwoma nthreema nfourma">
+        <a class="mama" href="#">
+          <img class="msvg3ma mtwoma msvg4ma" src="pimg.webp" alt="">
+          Mrym's Corner
+        </a>
+      </div>
+      <hr class="mlinema">
+    </div>
+  </div>
+
+  <div class="midsecma">
+    <div class="msectopma">
+      <div class="miconsma twoma ma2ma">
+        <a href="#" onclick="document.getElementById('fileInputma').click(); return false;"> 
+          <img class="mfpm mp2ma mp3ma" src="imgg.png" alt="">
+        </a>
+      </div>
+      <p class="ma2ma ma3ma">Create a photo story</p>
+      <input type="file" id="fileInputma" accept="image/*" style="display: none;" onchange="createNewStory(event)">
+    </div>
+
+    <div class="msectopma maf3ma">
+      <div class="miconsma twoma ma2ma">
+        <a href="#"><img class="mfpm mp2ma mp3ma" src="money_15208113.png" alt=""></a>
+      </div>
+      <p class="ma2ma ma3ma">Create a text story</p>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="full-viewma ">
+  <div class="close-btnma">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+      class="size-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+
+  </div>
+  <div class="pstoryma">
+
+
+    <div>
+      <div class="storyma">
+        <img src="test.webp" alt="">
+      </div>
+
+    </div>
+
+
+
+  </div>
+  <div class="btndivma">
+    <button class="up-storyma">Share to story</button>
+  </div>
+</div>
+</div>
+
+
+<!-- MY DROP DOWN CARD PROFILE -->
+<div class="dropdown-card" id="dropdownCard">
+<div class="profile-section">
+  <div class="profile">
+    <img src="pimg.webp" alt="User">
+    <span>Mrym's Corner</span>
+  </div>
+  <div class="profile">
+    <img src="shopp.avif" alt="Shop">
+    <span>Swag Shop</span>
+  </div>
+  <div class="profile">
+    <img src="shopp.avif" alt="Products">
+    <span>Swag Shop products</span>
+  </div>
+  <div class="see-all">See all profiles</div>
+</div>
+
+<style>
+.dropdown-card {
+  position: absolute;
+  top: 100px;
+  right: 50px;
+  width: 300px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  display: none;
+  z-index: 10;
+}
+
+.profile-section {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.see-all {
+  padding: 8px;
+  text-align: center;
+  border-radius: 6px;
+  background: #f0f2f5;
+  cursor: pointer;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #f0f2f5;
+}
+
+.option i {
+  margin-right: 10px;
+}
+
+.footer {
+  font-size: 12px;
+  color: #888;
+  margin-top: 15px;
+  text-align: center;
+}
+  .cardimg{
+    width: 25px;
+  }
+</style>
+  <div class="option"><i><img class="cardimg" src="messenger.png" alt=""></i>Messenger</div>
+
+
+  <div class="option"><i><img class="cardimg" src="kidmessenger.png" alt=""></i>Help & support</div>
+<div class="option"><i><img class="cardimg" src="community_11391637.png" alt=""></i>Display & accessibility</div>
+<div class="option"><i><img class="cardimg" src="notification.png" alt=""></i>Give feedback <span style="margin-left:auto;font-size:12px;">CTRL B</span></div>
+<div class="option"><i><img class="cardimg" src="see less.png" alt=""></i>Log out</div>
+
+<div class="footer">
+  Privacy · Terms · Advertising · Ad choices · Cookies · More · Meta © 2025
+</div>
+</div>
+<style>
+
+.notification-button {
+  padding: 10px 20px;
+  background-color: #0084ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.notification-card {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  width: 360px;
+  max-height: 90vh;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  display: none;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.notification-header {
+  padding: 16px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+}
+
+.notification-list {
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.notification-item:hover {
+  background-color: #f0f2f5;
+}
+
+.notification-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.notification-text {
+  font-size: 15px;
+  color: #333;
+}
+
+.notification-time {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.view-all {
+  padding: 14px;
+  text-align: center;
+  background-color: #f0f2f5;
+  border-top: 1px solid #ddd;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.view-all:hover {
+  background-color: #e4e6eb;
+}
+</style>
+
+
+<!-- --MY NOTIFICTION CARD--- -->
+<div class="notification-card" id="notificationCard">
+<div class="notification-header">Notifications</div>
+
+<div class="notification-list">
+  <div class="notification-item">
+    <img src="story9.jpg" alt="user">
+    <div>
+      <div class="notification-text"><strong>John Doe</strong> liked your post.</div>
+      <div class="notification-time">5 minutes ago</div>
+    </div>
+  </div>
+
+  <div class="notification-item">
+    <img src="shopp.avif" alt="user">
+    <div>
+      <div class="notification-text"><strong>Emily Smith</strong> commented on your photo.</div>
+      <div class="notification-time">15 minutes ago</div>
+    </div>
+  </div>
+
+  <div class="notification-item">
+    <img src="smart-tv_8077532.png" alt="user">
+    <div>
+      <div class="notification-text"><strong>Michael Brown</strong> mentioned you in a comment.</div>
+      <div class="notification-time">30 minutes ago</div>
+    </div>
+  </div>
+
+  <div class="notification-item">
+    <img src="photo2.png" alt="user">
+    <div>
+      <div class="notification-text"><strong>Sophia Lee</strong> shared your post.</div>
+      <div class="notification-time">1 hour ago</div>
+    </div>
+  </div>
+
+  <div class="notification-item">
+    <img src="story2.jpg" alt="user">
+    <div>
+      <div class="notification-text"><strong>David Kim</strong> sent you a friend request.</div>
+      <div class="notification-time">2 hours ago</div>
+    </div>
+  </div>
+</div>
+
+<div class="view-all">View All Notifications</div>
+</div>
+
+<!-- ---MY MENU CARD-- -->
+<div id="menuCard" class="menu-card hidden">
+<ul>
+  <div class="cmenu friends">
+    <a class="cimg " href="#">
+      <img src="friendship_11136506.png" class="mp2" alt="">
+      Friends
+    </a>
+  </div>
+  <div class="cmenu groups">
+    <a class="cimg " href="#" id="groups">
+      <img src="community_11391637.png" class="mp2" alt="">
+      Groups
+    </a>
+  </div>
+
+  <div class="cmenu feed">
+    <a class="cimg " href="#">
+      <img src="smart-tv_8077532.png" class="mp2" alt="">
+      Video
+    </a>
+  </div>
+
+  <div class="cmenu marketplace">
+    <a class="cimg" href="#">
+      <img src="marketplace_16842298.png" class="mp2" alt="">
+      Marketplace
+    </a>
+  </div>
+</ul>
+</div></div>
+<style>
+
+/* 
+body {
+  font-family: Arial, sans-serif;
+  margin: 50px;
+} */
+.cimg{
+  width: 20px;
+  text-decoration: none;
+  display: flex;
+  font-size: 20px;
+  font-weight: 400;
+  color: black;
+  gap: 5px;
+  padding: 10px;
+}
+.cmenu{
+  align-items: center;
+  font-size: 20px;
+  font-weight: 400;
+  color: black;
+}
+.menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* #menuBtn {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+} */
+
+.menu-card {
+  position: absolute;
+  top: 90px;
+  right: 190px;
+  background: white;
+  border: 1px solid #ccc;
+  width: 300px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  z-index: 100;
+}
+@media (max-width: 800px) {
+  .menu-card {
+  position: absolute;
+  top: 90px;
+  right: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  width: 250px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  z-index: 100;
+}
+}
+
+.menu-card ul {
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+}
+
+
+.hidden {
+  display: none;
+}
+
+</style>
+</div>
+
+
+<script>
+  function showPage(pageId) {
+    document.getElementById("signupPage").style.display = "none";
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("forgotPage").style.display = "none";
+    document.getElementById(pageId).style.display = "block";
+  }
+  
+  document.getElementById("signupForm").addEventListener("submit", function(e) {
+     e.preventDefault();
+     const password = document.getElementById('sign-up-password').value;
+     const email = document.getElementById('sign-up-email').value;
+  
+     if (password.length < 8) {
+        alert("Password must be at least 8 characters long.");
+     } else if (!/[A-Z]/.test(password)) {
+        alert("Password must contain at least one uppercase letter.");
+     } else {
+        alert("Sign Up successful!");
+        localStorage.setItem('sign-up-email', email);
+        localStorage.setItem('sign-up-password', password);
+        showPage("loginPage");
+     }
+  });
+  
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+  
+    const savedEmail = localStorage.getItem('sign-up-email');
+    const savedPassword = localStorage.getItem('sign-up-password');
+  
+    if (email === savedEmail && password === savedPassword) {
+      alert("Login successful!");
+      document.getElementById("registration-page").style.display = "none";
+      document.getElementById("mainHome").style.display = "block";
+    } else {
+      alert("Incorrect email or password.");
+    }
+  });
+  
+  document.getElementById("resetForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    alert("Reset link sent!");
+    showPage("loginPage");
+  });
+  </script>
+  <script src="main.js"></script>
+
+</body>
+</html>
