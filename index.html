@@ -1390,57 +1390,122 @@ body {
   display: none;
 }
 
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.popup-content {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.3s ease;
+}
+.popup-content button {
+  margin-top: 20px;
+  padding: 8px 20px;
+  background: #4CAF50;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.popup-content button:hover {
+  background: #45a049;
+}
+.hidden {
+  display: none;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 </style>
+</div>
+<!-- Popup Box -->
+<div id="customPopup" class="popup hidden">
+  <div class="popup-content">
+    <span id="popupMessage"></span>
+    <button onclick="closePopup()">OK</button>
+  </div>
 </div>
 
 
+
 <script>
-  function showPage(pageId) {
-    document.getElementById("signupPage").style.display = "none";
-    document.getElementById("loginPage").style.display = "none";
-    document.getElementById("forgotPage").style.display = "none";
-    document.getElementById(pageId).style.display = "block";
-  }
-  
-  document.getElementById("signupForm").addEventListener("submit", function(e) {
-     e.preventDefault();
-     const password = document.getElementById('sign-up-password').value;
-     const email = document.getElementById('sign-up-email').value;
-  
-     if (password.length < 8) {
-        alert("Password must be at least 8 characters long.");
-     } else if (!/[A-Z]/.test(password)) {
-        alert("Password must contain at least one uppercase letter.");
-     } else {
-        alert("Sign Up successful!");
-        localStorage.setItem('sign-up-email', email);
-        localStorage.setItem('sign-up-password', password);
-        showPage("loginPage");
-     }
-  });
-  
-  document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-  
-    const savedEmail = localStorage.getItem('sign-up-email');
-    const savedPassword = localStorage.getItem('sign-up-password');
-  
-    if (email === savedEmail && password === savedPassword) {
-      alert("Login successful!");
-      document.getElementById("registration-page").style.display = "none";
-      document.getElementById("mainHome").style.display = "block";
-    } else {
-      alert("Incorrect email or password.");
-    }
-  });
-  
-  document.getElementById("resetForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    alert("Reset link sent!");
+ // Show specific page
+function showPage(pageId) {
+  document.getElementById("signupPage").style.display = "none";
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("forgotPage").style.display = "none";
+  document.getElementById(pageId).style.display = "block";
+}
+
+// Show custom popup
+function showPopup(message) {
+  const popup = document.getElementById('customPopup');
+  const popupMessage = document.getElementById('popupMessage');
+  popupMessage.textContent = message;
+  popup.classList.remove('hidden');
+}
+
+// Close popup
+function closePopup() {
+  document.getElementById('customPopup').classList.add('hidden');
+}
+
+// Signup form submission
+document.getElementById("signupForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const password = document.getElementById('sign-up-password').value;
+  const email = document.getElementById('sign-up-email').value;
+
+  if (password.length < 8) {
+    showPopup("Password must be at least 8 characters long.");
+  } else if (!/[A-Z]/.test(password)) {
+    showPopup("Password must contain at least one uppercase letter.");
+  } else {
+    showPopup("Sign Up successful!");
+    localStorage.setItem('sign-up-email', email);
+    localStorage.setItem('sign-up-password', password);
     showPage("loginPage");
-  });
+  }
+});
+
+// Login form submission
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+
+  const savedEmail = localStorage.getItem('sign-up-email');
+  const savedPassword = localStorage.getItem('sign-up-password');
+
+  if (email === savedEmail && password === savedPassword) {
+    showPopup("Login successful!");
+    document.getElementById("registration-page").style.display = "none";
+    document.getElementById("mainHome").style.display = "block";
+  } else {
+    showPopup("Incorrect email or password.");
+  }
+});
+
+// Reset form submission
+document.getElementById("resetForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  showPopup("Reset link sent!");
+  showPage("loginPage");
+});
+
   </script>
   <script src="main.js"></script>
 

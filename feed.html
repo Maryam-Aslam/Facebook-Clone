@@ -1000,8 +1000,36 @@
   
   </style>
 
+<div id="popup-message" style="
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+  font-size: 14px;
+  transition: opacity 0.5s ease;
+"></div>
 
 <script>
+function showPopup(message) {
+  const popup = document.getElementById('popup-message');
+  popup.textContent = message;
+  popup.style.display = 'block';
+  popup.style.opacity = '1';
+
+  setTimeout(() => {
+    popup.style.opacity = '0';
+    setTimeout(() => {
+      popup.style.display = 'none';
+    }, 500);
+  }, 2000);
+}
 
 document.querySelectorAll(".mlogo").forEach(function(element) {
   element.onclick = function() {
@@ -1065,14 +1093,13 @@ document.querySelectorAll(".mhome").forEach(function(element) {
     const likeCountSpan = button.closest('.post').querySelector('.like-count');
     let currentLikes = parseInt(likeCountSpan.getAttribute('data-likes'), 10);
 
+
+    
     // Toggle like
-    if (button.classList.contains('liked')) {
-      currentLikes--;
-      button.classList.remove('liked');
-    } else {
+    button.classList.contains('liked')
       currentLikes++;
-      button.classList.add('liked');
-    }
+    button.classList.add('liked');
+
 
     likeCountSpan.setAttribute('data-likes', currentLikes);
     likeCountSpan.textContent = `${currentLikes} Likes`;
@@ -1107,15 +1134,18 @@ document.querySelectorAll(".mhome").forEach(function(element) {
   }
 
   function markInterest(button, type) {
-    const post = button.closest('.post');
+  const post = button.closest('.post');
 
-    if (type === 'notInterested') {
-      alert("This type of video will not be shown again.");
-      post.remove(); // Remove the post after alert
-    } else if (type === 'interested') {
-      alert("You will see more videos like this.");
-    }
+  if (type === 'notInterested') {
+    showPopup("This type of video will not be shown again.");
+    post.style.transition = 'filter 0.3s ease';
+    post.style.filter = 'blur(8px)';
+
+  } else if (type === 'interested') {
+    showPopup("You will see more videos like this.");
   }
+}
+
 </script>
 
 </body>

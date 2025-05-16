@@ -6,6 +6,7 @@ const menuCard = document.getElementById('menuCard');
 
 menuBtn.addEventListener('click', () => {
   menuCard.classList.toggle('hidden');
+  
 });
 
 function toggleNotifications() {
@@ -60,9 +61,9 @@ document.querySelectorAll(".mlogo").forEach(function(element) {
       
 
 
-  document.getElementById("linked").onclick = function () {
-    document.getElementById("storypage").classList.add("show-div");
-  };
+  // document.getElementById("linked").onclick = function () {
+  //   document.getElementById("storypage").classList.add("show-div");
+  // };
 
   const fileInput = document.getElementById('fileInputma');
   const previewSec = document.querySelector('.full-viewma');
@@ -73,30 +74,18 @@ document.querySelectorAll(".mlogo").forEach(function(element) {
     fileInput.click();
   };
 
-  fileInput.onchange = e => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      storyImg.src = imageUrl;
-      previewSec.classList.add('active');
-    }
-  };
+  // fileInput.onchange = e => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const imageUrl = URL.createObjectURL(file);
+  //     storyImg.src = imageUrl;
+  //     previewSec.classList.add('active');
+  //   }
+  // };
 
-  closeBtnma.onclick = () => {
-    previewSec.classList.remove('active');
-  };
-
-
-
-
-
-
-
-
-
-
-
-
+  // closeBtnma.onclick = () => {
+  //   previewSec.classList.remove('active');
+  // };
 
 
 
@@ -343,9 +332,20 @@ Your feed needed this. Just posted for you!
     const post = button.closest('.post');
     const likeCountElement = post.querySelector('.like-count');
     let currentLikes = parseInt(likeCountElement.innerText.replace('👍', '').trim());
-    currentLikes++;
+  
+    if (button.classList.contains('liked')) {
+      // Unlike
+      currentLikes = Math.max(0, currentLikes - 1); // prevent negative likes
+      button.classList.remove('liked');
+    } else {
+      // Like
+      currentLikes++;
+      button.classList.add('liked');
+    }
+  
     likeCountElement.innerText = `👍 ${currentLikes}`;
   }
+  
 
   function toggleCommentBox(btn) {
     const commentBox = btn.parentElement.nextElementSibling;
